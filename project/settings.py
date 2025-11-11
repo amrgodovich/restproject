@@ -37,12 +37,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'tickets'
+    'tickets',
     'rest_framework',
 ]
 
 restframeworks={
-
 }
 
 REST_FRAMEWORK = {}
