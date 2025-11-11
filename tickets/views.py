@@ -5,7 +5,7 @@ from rest_framework import status
 # use package-relative imports so Python finds the app modules
 from .serializers import GuestSerializer, MovieSerializer, ReservationSerlaizer
 from .models import Guest, Reservation, Movie
-
+from rest_framework.views import APIView
 # Create your views here.
 def nomodelnorest(request):
     guests=[
@@ -47,3 +47,21 @@ def FBV_PK(request,pk):
     if request.method=='DELETE':
         guest.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class CBV_List(APIView):
+    def get(self,request):
+        guests=Guest.objects.all()
+        serializer = GuestSerializer(guests, many=True)
+        return Response(serializer.data)
+    def post(self, request):
+        serializer = GuestSerializer(data= request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status = status.HTTP_201_CREATED
+            )
+        return Response(
+            serializer.data,
+            status= status.HTTP_400_BAD_REQUEST
+        )
