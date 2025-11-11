@@ -1,7 +1,8 @@
 from django.urls import path,include
-from .views import nomodelnorest
+from .views import *
 
 urlpatterns = [
-    path('',nomodelnorest),
+    path('fbv',FBV_List),
+    path('fbv/<int:pk>',FBV_PK),
 
 ]
