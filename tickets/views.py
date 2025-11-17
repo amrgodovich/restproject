@@ -2,10 +2,10 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-# use package-relative imports so Python finds the app modules
 from .serializers import GuestSerializer, MovieSerializer, ReservationSerlaizer
 from .models import Guest, Reservation, Movie
 from rest_framework.views import APIView
+from rest_framework import viewsets
 # Create your views here.
 def nomodelnorest(request):
     guests=[
@@ -65,3 +65,8 @@ class CBV_List(APIView):
             serializer.data,
             status= status.HTTP_400_BAD_REQUEST
         )
+
+
+class GuestViewSet(viewsets.ModelViewSet):
+    queryset = Guest.objects.all()
+    serializer_class = GuestSerializer
