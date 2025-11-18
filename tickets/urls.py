@@ -11,6 +11,6 @@ urlpatterns = [
     path('fbv/<int:pk>',FBV_PK),
     path('cbv',CBV_List.as_view()),
     path('viewset/', include(router.urls)),
-    # path('gen_post/',PostView.as_view())
+    # path('gen_post/',PostView_ls.as_view()),
     path('gen_post_pk/<int:pk>',PostView.as_view())
 ]

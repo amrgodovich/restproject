@@ -6,8 +6,9 @@ from .serializers import GuestSerializer, PostSerializer
 from .models import Guest,Post
 from rest_framework.views import APIView
 from rest_framework import viewsets,generics
-
-from rest_framework.authentication import TokenAuthentication
+from .permissons import IsAuthorOrReadOnly
+from rest_framework.authentication import TokenAuthentication,BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 def nomodelnorest(request):
     guests=[
@@ -72,8 +73,14 @@ class CBV_List(APIView):
 class GuestViewSet(viewsets.ModelViewSet):
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
-    authentication_classes=[TokenAuthentication]
+    # authentication_classes=[TokenAuthentication]
+
+# class PostView_ls(generics.ListCreateAPIView):
+#     queryset=Post.objects.all()
+#     serializer_class = PostSerializer
 
 class PostView(generics.RetrieveUpdateDestroyAPIView):
     queryset=Post.objects.all()
     serializer_class = PostSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes=[IsAuthenticated,IsAuthorOrReadOnly]
